@@ -34,7 +34,7 @@ public class CrimeFragment extends Fragment {
         //return super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.fragment_crime, container, false);
         Log.d(this.getClass().toString() + ".....................", "oncreateview");
-
+        //제목
         mTitleField = v.findViewById(R.id.crime_title);
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -52,11 +52,11 @@ public class CrimeFragment extends Fragment {
 
             }
         });
-
+        //발생일자
         mDateButton = v.findViewById(R.id.crime_date);
         mDateButton.setText(mCrime.getDate().toString());
         mDateButton.setEnabled(false);
-
+        //해결됨
         mSolvedCheckBox = v.findViewById(R.id.crime_solved);
         mSolvedCheckBox.setChecked(mCrime.isSolved());  ///////////////////////by ryoo
         mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
