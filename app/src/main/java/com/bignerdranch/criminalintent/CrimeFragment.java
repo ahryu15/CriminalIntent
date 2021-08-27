@@ -1,5 +1,7 @@
 package com.bignerdranch.criminalintent;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,8 +16,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import java.util.UUID;
 
 public class CrimeFragment extends Fragment {
+    public static final String EXTRA_CRIME_ID = "com.bignerdranch.android.criminalintent.crime.id";
+
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
@@ -24,7 +29,8 @@ public class CrimeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCrime = new Crime();
+        UUID crimeId = (UUID) getActivity().getIntent().getSerializableExtra(EXTRA_CRIME_ID);
+        mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
         Log.d(this.getClass().toString() + ".....................", "oncreate");
     }
 
@@ -36,6 +42,7 @@ public class CrimeFragment extends Fragment {
         Log.d(this.getClass().toString() + ".....................", "oncreateview");
         //제목
         mTitleField = v.findViewById(R.id.crime_title);
+        mTitleField.setText(mCrime.getTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -58,7 +65,7 @@ public class CrimeFragment extends Fragment {
         mDateButton.setEnabled(false);
         //해결됨
         mSolvedCheckBox = v.findViewById(R.id.crime_solved);
-        mSolvedCheckBox.setChecked(mCrime.isSolved());  ///////////////////////by ryoo
+        mSolvedCheckBox.setChecked(mCrime.isSolved());
         mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -67,5 +74,11 @@ public class CrimeFragment extends Fragment {
         });
 
         return v;
+    }
+
+    public static Intent newIntent(Context packageContext, UUID crimeId){
+        Intent intent = new Intent(packageContext, CrimeActivity.class);
+        intent.putExtra(EXTRA_CRIME_ID, crimeId);
+        return intent;
     }
 }
