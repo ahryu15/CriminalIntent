@@ -1,5 +1,6 @@
 package com.bignerdranch.criminalintent;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +20,7 @@ import android.widget.EditText;
 import java.util.UUID;
 
 public class CrimeFragment extends Fragment {
-    public static final String EXTRA_CRIME_ID = "com.bignerdranch.android.criminalintent.crime.id";
+    public static final String ARG_CRIME_ID = "crime_id";
 
     private Crime mCrime;
     private EditText mTitleField;
@@ -29,7 +30,7 @@ public class CrimeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID crimeId = (UUID) getActivity().getIntent().getSerializableExtra(EXTRA_CRIME_ID);
+        UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
         Log.d(this.getClass().toString() + ".....................", "oncreate");
     }
@@ -76,9 +77,12 @@ public class CrimeFragment extends Fragment {
         return v;
     }
 
-    public static Intent newIntent(Context packageContext, UUID crimeId){
-        Intent intent = new Intent(packageContext, CrimeActivity.class);
-        intent.putExtra(EXTRA_CRIME_ID, crimeId);
-        return intent;
+    public static CrimeFragment newInstance(UUID crimeId){
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_CRIME_ID, crimeId);
+
+        CrimeFragment fragment = new CrimeFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 }
