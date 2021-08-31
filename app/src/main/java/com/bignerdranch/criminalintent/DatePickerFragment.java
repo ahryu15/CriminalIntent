@@ -36,6 +36,7 @@ public class DatePickerFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        //날짜 받기
         Date date = (Date) getArguments().getSerializable(ARG_DATE);
 
         Calendar calendar = Calendar.getInstance();
@@ -64,7 +65,7 @@ public class DatePickerFragment extends DialogFragment {
                 })
                 .create();
     }
-
+    //날짜 응답하기
     private void sendResult(int resultCode, Date date){
         if (getTargetFragment() == null){
             return;

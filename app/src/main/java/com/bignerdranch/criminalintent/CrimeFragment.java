@@ -40,7 +40,6 @@ public class CrimeFragment extends Fragment {
         Log.d(this.getClass().toString() + ".....................", "oncreate");
     }
 
-    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
@@ -89,7 +88,7 @@ public class CrimeFragment extends Fragment {
 
         return v;
     }
-
+    //datepicker 응답받기.
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if ( resultCode != Activity.RESULT_OK) {

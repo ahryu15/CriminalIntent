@@ -8,17 +8,17 @@ import java.util.UUID;
 
 public class CrimeLab {
     private static CrimeLab sCrimeLab;
-    private List<Crime> sCrimes;
+    private List<Crime> mCrimes;
 
     public CrimeLab(Context context) {
-        sCrimes = new ArrayList<>();
+        mCrimes = new ArrayList<>();
 
-        for(int i = 0; i < 100; i++) {
-            Crime crime = new Crime();
-            crime.setTitle("범죄 #" + i);
-            crime.setSolved(i % 2 == 0);
-            sCrimes.add(crime);
-        }
+//        for(int i = 0; i < 100; i++) {
+//            Crime crime = new Crime();
+//            crime.setTitle("범죄 #" + i);
+//            crime.setSolved(i % 2 == 0);
+//            mCrimes.add(crime);
+//        }
     }
 
     public static CrimeLab get(Context context) {
@@ -28,12 +28,15 @@ public class CrimeLab {
         return sCrimeLab;
     }
 
+    public void addCrime(Crime c) {
+        mCrimes.add(c);
+    }
     public List<Crime> getCrimes() {
-        return sCrimes;
+        return mCrimes;
     }
 
     public Crime getCrime(UUID id){
-        for(Crime crime : sCrimes){
+        for(Crime crime : mCrimes){
             if(crime.getId().equals(id)) {
                 return crime;
             }

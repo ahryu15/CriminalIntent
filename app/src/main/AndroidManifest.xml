@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".CrimePagerActivity"
-            android:exported="true">
+            android:exported="true"
+            android:parentActivityName=".CrimeListActivity">
         </activity>
     </application>
 
