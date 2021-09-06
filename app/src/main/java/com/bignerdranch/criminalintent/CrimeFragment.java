@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -153,7 +154,8 @@ public class CrimeFragment extends Fragment {
         mPhotoButton.setEnabled(canTakePhoto);
 
         if(canTakePhoto) {
-            Uri uri = Uri.fromFile(mPhotoFile);
+//            Uri uri = Uri.fromFile(mPhotoFile);
+            Uri uri = FileProvider.getUriForFile(getContext(), "com.bignerdranch.criminalintent.fileprovider", mPhotoFile);
             captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         }
 
